@@ -1,15 +1,20 @@
+var http = require('http')
 
-var module_file = require('./module_file.js')
 
+var url = process.argv[2]
+http.get(url, function(res) {
+	res.on("error", function(err) {
+		console.log('error: ', err)
+	})
 
-    var dir = process.argv[2]
-    var filterStr = process.argv[3]
-    
-    filterFn(dir, filterStr, function (err, list) {
-      if (err)
-        return console.error('There was an error:', err)
-    
-      list.forEach(function (file) {
-        console.log(file)
-      })
-    })
+	res.on("data", function(data) {
+
+		console.log(data.toString())
+		//var arr = data.toString().split('\n')
+		//console.log('arr:', arr)
+		//arr.forEach(function(str) {
+		//	console.log('str', str)
+		//})
+	})
+
+})
